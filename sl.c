@@ -85,10 +85,37 @@ void DEnode(struct Node** head){
         ptr->next = NULL;
     }
 }
-void DKnode(struct Node** head,int k){
-    struct Node* ptr = *head;
-    
+void DPnode(struct Node** head, int pos) {
+    if (*head == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+
+    struct Node* temp = *head;
+
+    // If deleting first node
+    if (pos == 1) {
+        DInode(&head);
+        return;
+    }
+
+    // Traverse to the node BEFORE the deleting one
+    struct Node* prev = NULL;
+    for (int i = 1; temp != NULL && i < pos; i++) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    // If position invalid
+    if (temp == NULL) {
+        printf("Invalid position\n");
+        return;
+    }
+
+    prev->next = temp->next;
+    free(temp);
 }
+
 int main(){
     int h;
     struct Node* head = NULL;
